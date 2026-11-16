@@ -1,0 +1,7 @@
+{
+  "stock_mmol": {
+    "Nc1ccc(O)cc1": 25.0,
+    "CC(=O)OC(C)=O": 40.0,
+    "Oc1ccc([N+](=O)[O-])cc1": 10.0
+  }
+}

@@ -1,0 +1,4 @@
+[
+  {"name": "Heated stir plate", "min_temp_c": 20, "max_temp_c": 150, "features": []},
+  {"name": "Hydrogenation station", "min_temp_c": 20, "max_temp_c": 80, "features": ["pressurized_h2"]}
+]

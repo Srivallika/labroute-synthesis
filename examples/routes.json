@@ -1,0 +1,38 @@
+[
+  {
+    "type": "mol", "smiles": "CC(=O)Nc1ccc(O)cc1", "in_stock": false,
+    "children": [
+      {"type": "reaction", "smiles": "", "metadata": {"classification": "amine_acylation_anhydride"},
+       "children": [
+         {"type": "mol", "smiles": "Nc1ccc(O)cc1", "in_stock": true},
+         {"type": "mol", "smiles": "CC(=O)OC(C)=O", "in_stock": true}
+       ]}
+    ]
+  },
+  {
+    "type": "mol", "smiles": "CC(=O)Nc1ccc(O)cc1", "in_stock": false,
+    "children": [
+      {"type": "reaction", "smiles": "", "metadata": {"classification": "amine_acylation_anhydride"},
+       "children": [
+         {"type": "mol", "smiles": "Nc1ccc(O)cc1", "in_stock": false,
+          "children": [
+            {"type": "reaction", "smiles": "", "metadata": {"classification": "nitro_reduction"},
+             "children": [
+               {"type": "mol", "smiles": "Oc1ccc([N+](=O)[O-])cc1", "in_stock": true}
+             ]}
+          ]},
+         {"type": "mol", "smiles": "CC(=O)OC(C)=O", "in_stock": true}
+       ]}
+    ]
+  },
+  {
+    "type": "mol", "smiles": "CC(=O)Nc1ccc(O)cc1", "in_stock": false,
+    "children": [
+      {"type": "reaction", "smiles": "", "metadata": {"classification": "amine_acylation_acyl_chloride"},
+       "children": [
+         {"type": "mol", "smiles": "Nc1ccc(O)cc1", "in_stock": true},
+         {"type": "mol", "smiles": "CC(=O)Cl", "in_stock": false}
+       ]}
+    ]
+  }
+]

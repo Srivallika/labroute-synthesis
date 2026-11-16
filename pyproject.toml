@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "labroute"
+version = "0.1.0"
+description = "Operational-feasibility assessment, outcome logging, and reliability-aware ranking of AI-generated synthesis routes"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+chem = ["rdkit"]
+aizynth = ["aizynthfinder"]
+dev = ["pytest"]
+
+[project.scripts]
+labroute = "labroute.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

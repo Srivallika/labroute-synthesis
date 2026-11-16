@@ -1,0 +1,5 @@
+{
+  "amine_acylation_anhydride": {"temperature_c": 25},
+  "nitro_reduction": {"temperature_c": 25, "required_features": ["pressurized_h2"]},
+  "amine_acylation_acyl_chloride": {"temperature_c": 0, "required_features": ["inert_atmosphere"]}
+}
