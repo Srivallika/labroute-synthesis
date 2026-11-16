@@ -6,3 +6,4 @@ dist/
 build/
 data/private/
 *.private.jsonl
+.DS_Store
