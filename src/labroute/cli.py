@@ -2,6 +2,7 @@
 
   labroute rank --routes routes.json --inventory inventory.json --equipment equipment.json \
                 --outcomes outcomes.jsonl [--conditions conditions.json] [--scale 1.0]
+  labroute check-data --outcomes outcomes.jsonl
   labroute log  --store outcomes.jsonl --reaction-key KEY (--yield 72 | --result failure) [--min-yield 50]
 """
 
@@ -15,7 +16,8 @@ from .adapters.aizynthfinder import routes_from_tree_dicts
 from .constraints import LabProfile
 from .estimator import BetaSuccessEstimator
 from .models import Conditions, Outcome, OutcomeStore, SuccessCriterion
-from .ranking import rank_routes, stock_baseline_rank
+from .quality import quality_report
+from .ranking import rank_routes, rank_by_stock
 
 
 def _load_conditions(path):
@@ -25,7 +27,7 @@ def _load_conditions(path):
         return {k: Conditions.from_dict(v) for k, v in json.load(f).items()}
 
 
-def rank_routes(args) -> int:
+def cmd_rank(args) -> int:
     with open(args.routes, encoding="utf-8") as f:
         tree_dicts = json.load(f)
     routes = routes_from_tree_dicts(tree_dicts, _load_conditions(args.conditions))
@@ -38,7 +40,7 @@ def rank_routes(args) -> int:
 
     print("\nRanking considering constraints and reliability:")
     for r in rank_routes(routes, lab, estimator, args.scale, args.risk_aversion):
-        status = "feasible" if r.operational_feasible else "NOT feasible"
+        status = "feasible" if r.operational_feasible else "Not feasible"
         ev = "" if r.all_steps_have_evidence else "  [limited evidence]"
         print(
             f"  #{r.rank} {r.route_id}: {status}, "
@@ -70,6 +72,15 @@ def cmd_log(args) -> int:
     return 0
 
 
+def cmd_check(args) -> int:
+    report = quality_report(OutcomeStore(args.outcomes).load())
+    print(f"Records: {report['total']}  trusted: {report['trusted']}  excluded: {report['excluded']}")
+    for source, counts in report["yield_status_by_source"].items():
+        print(f"  {source}: " + ", ".join(f"{k}={v}" for k, v in sorted(counts.items())))
+    print("Public records without a valid yield are excluded as success labels.")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="labroute")
     sub = p.add_subparsers(dest="command", required=True)
@@ -82,7 +93,7 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--conditions", help="JSON: reaction_key -> conditions")
     r.add_argument("--scale", type=float, default=1.0, help="mmol per step")
     r.add_argument("--risk-aversion", type=float, default=1.0)
-    r.set_defaults(func=rank_routes)
+    r.set_defaults(func=cmd_rank)
 
     lg = sub.add_parser("log", help="append an experimental outcome")
     lg.add_argument("--store", required=True)
@@ -94,6 +105,9 @@ def build_parser() -> argparse.ArgumentParser:
     lg.add_argument("--source", default="lab", choices=["lab", "public"])
     lg.add_argument("--notes", default="")
     lg.set_defaults(func=cmd_log)
+    ck = sub.add_parser("check-data", help="report label-quality problems in an outcome store")
+    ck.add_argument("--outcomes", required=True)
+    ck.set_defaults(func=cmd_check)
     return p
 
 

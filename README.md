@@ -69,6 +69,15 @@ AiZynthFinder's tree format and metadata keys can differ between versions. Check
 - **Laboratory adaptation.** Public-data outcomes are down-weighted so a lab's own outcomes
   dominate as they accumulate.
 
+## Validate labels before using them
+
+Yields mined from patents or other text sources can be missing, negative, over 100%, or a mix of
+crude and isolated values. Do not treat them as success labels without checking.
+
+```bash
+labroute check-data --outcomes outcomes.jsonl
+```
+
 ## Known limitations (read before drawing conclusions)
 
 - Route-level success is the **product of step-level estimates, assuming independence**. This is a

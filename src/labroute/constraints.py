@@ -12,7 +12,7 @@ import json
 from dataclasses import dataclass, field
 from typing import Optional
 
-from .chem import canonical
+from .chem import canonicalize_smiles
 from .models import Conditions, Route
 
 

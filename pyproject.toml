@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "labroute"
-version = "0.1.0"
+version = "0.0.2"
 description = "Operational-feasibility assessment, outcome logging, and reliability-aware ranking of AI-generated synthesis routes"
 readme = "README.md"
 requires-python = ">=3.10"

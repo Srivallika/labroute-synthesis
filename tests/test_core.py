@@ -15,7 +15,7 @@ from labroute import (
     Step,
     SuccessCriterion,
     rank_routes,
-    stock_baseline_rank,
+    rank_by_stock,
     assess_route,
 )
 from labroute.adapters import routes_from_tree_dicts
@@ -178,4 +178,4 @@ def test_cli_rank_and_log(tmp_path, capsys):
     ])
     assert code == 0
     out = capsys.readouterr().out
-    assert "route_3" in out and "not feasible" in out
+    assert "route_3" in out and "Not feasible" in out

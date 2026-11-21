@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Optional
 
-from .chem import canonical
+from .chem import canonicalize_smiles
 
 
 @dataclass(frozen=True)

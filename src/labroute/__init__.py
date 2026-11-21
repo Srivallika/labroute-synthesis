@@ -3,7 +3,7 @@
 from .constraints import Equipment, FeasibilityReport, Inventory, LabProfile, assess_route
 from .estimator import BetaSuccessEstimator, Prediction
 from .models import Conditions, Outcome, OutcomeStore, Route, Step, SuccessCriterion
-from .ranking import RankedRoute, rank_routes, stock_baseline_rank
+from .ranking import RankedRoute, rank_routes, rank_by_stock
 
 __version__ = "0.1.0"
 
@@ -22,6 +22,6 @@ __all__ = [
     "Step",
     "SuccessCriterion",
     "rank_routes",
-    "stock_baseline_rank",
+    "rank_by_stock",
     "assess_route",
 ]
